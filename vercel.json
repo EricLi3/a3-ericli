@@ -1,24 +1,15 @@
 {
-    "rewrites": [
+    "version": 2,
+    "builds": [
         {
-            "source": "/todos",
-            "destination": "/api/todos"
-        },
+            "src": "express-server.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
         {
-            "source": "/submit",
-            "destination": "/api/submit"
-        },
-        {
-            "source": "/delete",
-            "destination": "/api/delete"
-        },
-        {
-            "source": "/edit",
-            "destination": "/api/edit"
-        },
-        {
-            "source": "/toggle",
-            "destination": "/api/toggle"
+            "src": "/(.*)",
+            "dest": "express-server.js"
         }
     ]
 }
