@@ -1,0 +1,16 @@
+{
+  "name": "a2-eric-li",
+  "version": "1.0.0",
+  "description": "Self declared best todo list web app in the world",
+  "author": "Eric Li",
+  "scripts": {
+    "start": "node express-server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mime": "^2.6.0",
+    "mongo": "^0.1.0",
+    "mongodb": "^6.19.0"
+  }
+}
