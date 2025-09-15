@@ -25,8 +25,8 @@ async function startServer() {
     const db = await connectDB();
     tasksCollection = getCollection("tasks-collection");
 
-    app.listen(port, host, () => {
-      console.log(`Server running at http://${host}:${port}/`);
+    app.listen(port, () => {
+      console.log(`Server running at port:${port}`);
     });
   } catch (err) {
     console.error("Failed to start server:", err);
