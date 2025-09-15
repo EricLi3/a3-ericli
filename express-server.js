@@ -4,7 +4,8 @@ const { connectDB, getCollection } = require('./server/db.cjs');
 const { ObjectId } = require('mongodb');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || '0.0.0.0';
 
 // Serve static files
 app.use(express.static('public'));
@@ -24,17 +25,13 @@ async function startServer() {
     const db = await connectDB();
     tasksCollection = getCollection("tasks-collection");
 
-    app.listen(port, () => {
-      console.log(`Server running at http://localhost:${port}/`);
+    app.listen(port, host, () => {
+      console.log(`Server running at http://${host}:${port}/`);
     });
   } catch (err) {
     console.error("Failed to start server:", err);
   }
 }
-// Serve index.html for root
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 app.get('/todos', async (req, res) => {
   try {
