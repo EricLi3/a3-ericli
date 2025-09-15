@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
-    --color-1: #c4d8fd;
-    --color-2: #2882ed;
-    --color-3: #28c0ed;
-    --color-4: #9eef92;
-    --color-5: #1e5ab2;
-    --color-6: #77d2ed;
+  --color-1: #c4d8fd;
+  --color-2: #2882ed;
+  --color-3: #28c0ed;
+  --color-4: #9eef92;
+  --color-5: #1e5ab2;
+  --color-6: #77d2ed;
 }
 
 body {
@@ -21,11 +21,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
-  background: rgba(255,255,255,0.85);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(40,130,237,0.08);
+  box-shadow: 0 4px 24px rgba(40, 130, 237, 0.08);
   padding: 2rem;
 }
 
