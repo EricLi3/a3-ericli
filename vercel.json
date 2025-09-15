@@ -1,0 +1,24 @@
+{
+    "rewrites": [
+        {
+            "source": "/todos",
+            "destination": "/api/todos"
+        },
+        {
+            "source": "/submit",
+            "destination": "/api/submit"
+        },
+        {
+            "source": "/delete",
+            "destination": "/api/delete"
+        },
+        {
+            "source": "/edit",
+            "destination": "/api/edit"
+        },
+        {
+            "source": "/toggle",
+            "destination": "/api/toggle"
+        }
+    ]
+}
