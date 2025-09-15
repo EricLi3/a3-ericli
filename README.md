@@ -13,13 +13,17 @@ Problem with using id in MongoDb instead of idx which was a big change I had to 
 
 - what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
 
-- I used Beer Css. Found the name to be funny and tried it out. Had to readress some of the container dimensions for the styling. Such as max width increased by 100 px. 
+- I used
   - include any modifications to the CSS framework you made via custom CSS you authored
 
 - a list of Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function, please add a little more detail about what it does.
 
 ## Technical Achievements
+- **Tech Achievement 1**:  Other hosting service
+I tried using vercel to host my website. This didn't work as you can see my link at the top of this README is Render. Vercel forces you to have endpoints as severless, also demanding a /api prefix before every endpoint. A good thing about vercel, much like Render, is that it deploys automatically upon commit. I am also familar with vercel, using it to host many projects in the past, but unfortuntly, it didn't work out this time.
+
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
