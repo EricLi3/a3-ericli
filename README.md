@@ -12,8 +12,10 @@ A lot of problems with connecting to Mongodb. Had to google a lot on server and 
 Problem with using id in MongoDb instead of idx which was a big change I had to figure out. 
 
 - what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- I used Beer Css. Found the name to be funny and tried it out.
+
+- I used Beer Css. Found the name to be funny and tried it out. Had to readress some of the container dimensions for the styling. Such as max width increased by 100 px. 
   - include any modifications to the CSS framework you made via custom CSS you authored
+
 - a list of Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function, please add a little more detail about what it does.
 
 ## Technical Achievements
