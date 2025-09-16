@@ -165,7 +165,7 @@ app.get('/todos', requireLogin, async (req, res) => {
   console.log("User in /todos:", req.user);
 
   try {
-    const todos = await tasksCollection.find({ username: req.username }).toArray();
+    const todos = await tasksCollection.find({}).toArray();
     res.json(todos);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -177,12 +177,9 @@ app.post("/submit", requireLogin, async (req, res) => {
   try {
     const todo = req.body;
     todo.daysLeft = calculateDaysLeft(todo.taskDueDate);
-
-    todo.username = req.username;
-
     await tasksCollection.insertOne(todo);
 
-    const todos = await tasksCollection.find({ username: req.username }).toArray();
+    const todos = await tasksCollection.find({}).toArray();
     res.json(todos);
   } catch (err) {
     res.status(500).json({ error: err.message });
