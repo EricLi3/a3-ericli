@@ -1,4 +1,35 @@
 // FRONT-END (CLIENT) JAVASCRIPT HERE
+async function checkLogin() {
+  try {
+    const res = await fetch('/me');
+    if (res.status === 401) {
+      showLogin();
+      return null;
+    }
+    const data = await res.json();
+    return data.user;
+  } catch (err) {
+    console.error(err);
+    showLogin();
+    return null;
+  }
+}
+
+function showLogin() {
+  const authSection = document.getElementById('auth-section');
+  authSection.innerHTML = `
+    <a href="/auth/github" id="login-btn">Login with GitHub</a>
+    <p>If this is your first time, a new account will be created automatically.</p>
+  `;
+  document.getElementById('app').style.display = 'none';
+}
+
+function showApp(username) {
+  document.getElementById('auth-section').style.display = 'none';
+  const app = document.getElementById('app');
+  app.style.display = 'block';
+  fetchTodos();
+}
 
 // Allow function to run in background
 const submit = async function (event) {
@@ -20,10 +51,7 @@ const submit = async function (event) {
     body
   });
 
-  if (response.status === 401) {
-    window.location.href = "/login.html";
-    return;
-  }
+  if (response.status === 401) return showLogin();
 
   const todos = await response.json();
   renderTodos(todos);
@@ -71,14 +99,12 @@ function renderTodos(todos) {
 
   // Add delete button handlers
   document.querySelectorAll(".delete-btn").forEach(button => {
-    button.onclick = async function (e) {
+    button.onclick = async e => {
       e.stopPropagation();
       if (!confirm("Are you sure you want to delete this task?")) return;
       const id = button.getAttribute("data-id");
-      const response = await fetch(`/delete?id=${id}`, {
-        method: "DELETE",
-      });
-      if (response.status === 401) return window.location.href = "/login.html";
+      const response = await fetch(`/delete?id=${id}`, { method: "DELETE" });
+      if (response.status === 401) return showLogin();
       const todos = await response.json();
       renderTodos(todos);
     };
@@ -130,20 +156,11 @@ function showEditPopup(todo, id) {
     popup.remove();
   };
 
-  document.getElementById("edit-form").onsubmit = async function (e) {
+  document.getElementById("edit-form").onsubmit = async e => {
     e.preventDefault();
-    const updated = {
-      id,
-      taskTitle: document.getElementById("edit-taskTitle").value,
-      taskDescription: document.getElementById("edit-taskDescription").value,
-      taskDueDate: document.getElementById("edit-taskDueDate").value
-    };
-    const response = await fetch("/edit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updated)
-    });
-    if (response.status === 401) return window.location.href = "/login.html";
+    const updated = { id, taskTitle: document.getElementById("edit-taskTitle").value, taskDescription: document.getElementById("edit-taskDescription").value, taskDueDate: document.getElementById("edit-taskDueDate").value };
+    const response = await fetch("/edit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(updated) });
+    if (response.status === 401) return showLogin();
     const todos = await response.json();
     renderTodos(todos);
     popup.remove();
@@ -151,23 +168,15 @@ function showEditPopup(todo, id) {
 }
 
 async function toggleCompleted(id, completed) {
-  const response = await fetch("/toggle", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id, completed })
-  });
-  if (response.status === 401) return window.location.href = "/login.html";
+  const response = await fetch("/toggle", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, completed }) });
+  if (response.status === 401) return showLogin();
   const todos = await response.json();
   renderTodos(todos);
 }
 
 async function fetchTodos() {
   const response = await fetch("/todos");
-  if (response.status === 401) {
-    // User not logged in → redirect to login page
-    window.location.href = "/login.html";
-    return;
-  }
+  if (response.status === 401) return showLogin();
   const todos = await response.json();
   renderTodos(todos);
 }
@@ -258,11 +267,18 @@ const logoutBtn = document.getElementById("logout-btn");
 if (logoutBtn) logoutBtn.onclick = () => window.location.href = "/logout";
 
 
-window.onload = function () {
-  const form = document.querySelector(".todo-form"); // allow for keyboard entry
-  form.onsubmit = submit;
-  fetchTodos();
+window.onload = async function () {
+  const user = await checkLogin();
+  if (!user) return;
+
+  showApp(user.username);
+
+  const form = document.querySelector(".todo-form");
+  if (form) form.onsubmit = submit;
+
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) logoutBtn.onclick = () => window.location.href = "/logout";
 
   const guideBtn = document.getElementById("start-guide");
   if (guideBtn) guideBtn.onclick = () => startGuide(0);
-}
+};

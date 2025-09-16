@@ -105,6 +105,11 @@ app.get('/logout', (req, res) => {
   });
 });
 
+app.get('/me', (req, res) => {
+  if (!req.isAuthenticated()) return res.status(401).json({ user: null });
+  res.json({ user: { username: req.user.username } });
+});
+
 // ----- API Routes -----
 
 app.get('/todos', requireLogin, async (req, res) => {
