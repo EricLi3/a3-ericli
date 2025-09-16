@@ -19,7 +19,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }, // HTTPS required on Render
+  cookie: { secure: true }, // HTTPS required on Render
   httpOnly: true,
   maxAge: 24 * 60 * 60 * 1000, // 24 hours
   sameSite: 'lax'
@@ -154,7 +154,7 @@ app.get('/me', (req, res) => {
   console.log('IsAuthenticated result:', req.isAuthenticated ? req.isAuthenticated() : 'N/A');
   console.log('User object:', req.user);
   console.log('==================\n');
-  
+
   if (!req.isAuthenticated()) return res.status(401).json({ user: null });
   res.json({ user: { username: req.user.username } });
 });
