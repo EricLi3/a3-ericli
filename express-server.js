@@ -165,7 +165,7 @@ app.get('/todos', requireLogin, async (req, res) => {
   console.log("User in /todos:", req.user);
 
   try {
-    const todos = await tasksCollection.find({}).toArray();
+    const todos = await tasksCollection.find({ username: req.user.username }).toArray();
     res.json(todos);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -177,9 +177,11 @@ app.post("/submit", requireLogin, async (req, res) => {
   try {
     const todo = req.body;
     todo.daysLeft = calculateDaysLeft(todo.taskDueDate);
+    todo.username = req.user.username;
+    todo.completed = false;
     await tasksCollection.insertOne(todo);
 
-    const todos = await tasksCollection.find({}).toArray();
+    const todos = await tasksCollection.find({ username: req.user.username }).toArray();
     res.json(todos);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -191,7 +193,7 @@ app.delete('/delete', requireLogin, async (req, res) => {
     const { id } = req.query;
     await tasksCollection.deleteOne({ _id: new ObjectId(id) });
 
-    const todos = await tasksCollection.find({}).toArray();
+    const todos = await tasksCollection.find({ username: req.user.username }).toArray();
     res.json(todos); // send updated list
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -205,7 +207,7 @@ app.post('/toggle', requireLogin, async (req, res) => {
     { $set: { completed } }
   );
 
-  const todos = await tasksCollection.find({}).toArray();
+  const todos = await tasksCollection.find({ username: req.user.username }).toArray();
   res.json(todos);
 });
 
@@ -216,7 +218,7 @@ app.post('/edit', requireLogin, async (req, res) => {
     { $set: { taskTitle, taskDescription, taskDueDate } }
   );
 
-  const todos = await tasksCollection.find({}).toArray();
+  const todos = await tasksCollection.find({ username: req.user.username }).toArray();
   res.json(todos);
 });
 
