@@ -19,6 +19,7 @@ function showLogin() {
   const authSection = document.getElementById('auth-section');
   authSection.innerHTML = `
     <div class="login-container">
+      <h2>Please log with GitHub to continute!</h2>
       <a href="/auth/github" id="login-btn">Login with GitHub</a>
     </div>
   `;
@@ -84,14 +85,22 @@ function renderTodos(todos) {
     `;
 
     // Toggle completed when clicking the list item (excluding buttons)
-    li.onclick = function (e) {
+    const toggleHandler = (e) => {
       if (
         !e.target.classList.contains("delete-btn") &&
         !e.target.classList.contains("fa-trash-o") &&
         !e.target.classList.contains("edit-btn") &&
         !e.target.classList.contains("fa-pencil")
       ) {
-        toggleCompleted(todo._id, !todo.completed); // use MongoDB _id
+        toggleCompleted(todo._id, !todo.completed);
+      }
+    };
+
+    li.onclick = toggleHandler;
+    // Add keypress listener to toggle with the 'Enter' key
+    li.onkeydown = (e) => {
+      if (e.key === 'Enter' || e.keyCode === 13) {
+        toggleHandler(e);
       }
     };
 

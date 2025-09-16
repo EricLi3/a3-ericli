@@ -61,7 +61,7 @@ body {
 
 .todo-form input {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--color-2);
+  border: 1px solid var(--color-4);
   border-radius: 8px;
   font-size: 1rem;
   background: var(--color-1);
