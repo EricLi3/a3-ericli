@@ -17,6 +17,28 @@ body {
   box-sizing: border-box;
 }
 
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#login-btn {
+  background: var(--color-2);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(40, 130, 237, 0.3);
+}
+
+#login-btn:hover {
+  background: var(--color-1);
+}
+
 .container {
   display: flex;
   flex-direction: column;
