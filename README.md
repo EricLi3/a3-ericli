@@ -39,6 +39,8 @@ Made interactive elements easy to find by using standout colors also making it c
 
 6. Provide easily identifiable feedback: Added the required field for all input fields in to todo-form. In this way, if the user forgets to fill in TaskTitle for example, the application will show a popup saying that the field must be filled in to proceed.
 
-7. Don’t use color alone to convey information: Added a css style for all reqauired inputs 
+7. Don’t use color alone to convey information: Added a css style for all reqauired inputs
 
-8. Ensure that form elements include clearly associated labels: Added descriptive associated labels for each form element. 
+8. Ensure that form elements include clearly associated labels: Added descriptive associated labels for each form element
+
+9. Semantic HTML structure: Used semantic tags: <main>, <section>, <form> for better accessibility and screen reader support
