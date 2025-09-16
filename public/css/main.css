@@ -53,7 +53,7 @@ body {
 
 .todo-form {
   display: flex;
-  gap: 1rem;
+  gap: 15px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -68,14 +68,9 @@ body {
   transition: border-color 0.2s;
 }
 
-input[required]::before {
-  content: '*';
+label[for][required]::after {
+  content: " *";
   color: red;
-  position: absolute;
-  left: -10px;
-  /* Adjust as needed */
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .todo-form input:focus {
