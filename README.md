@@ -25,5 +25,18 @@ This was quite difficult in terms of debugging. One big breakthrough I had was f
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
-1. Ensure that interactive elements are easy to identify
-Made interactive elements easy to find by using standout colors and also made sure it's possible for users to reach all interactive elements using the keyboard, also making it clear which element has focus.
+
+1. Ensure that interactive elements are keyboard accessible
+Made interactive elements easy to find by using standout colors also making it clear which element has focus.
+
+2. Use clear, simple language: All instructions, labels, and buttons were reviewed and rewritten for clarity (eg: "Add Task", "Task Description", taskDueDate)
+
+3. Use headings to convey meaning and structure: Used different headers such as h2 for login instructions and h3 for the edit popup innerHTML
+
+4. Provide clear instructions: I have an interactive guide that shows and explains what each major user interaction on the site is and what to do. I also have placeholders in the input fields for task such as the taskTitle, taskDescription, and taskDueDate.
+
+5. Visible focus indicators: CSS was updated to add a clear outline border: 1px solid #9eef92; for buttons, and input form fields, so keyboard users can easily see their location in the page.
+
+6. Provide easily identifiable feedback: Added the required field for all input fields in to todo-form. In this way, if the user forgets to fill in TaskTitle for example, the application will show a popup saying that the field must be filled in to proceed.
+
+7. Don’t use color alone to convey information: Added a css style for all reqauired inputs 

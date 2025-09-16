@@ -61,11 +61,21 @@ body {
 
 .todo-form input {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--color-4);
+  border: 2px solid var(--color-4);
   border-radius: 8px;
   font-size: 1rem;
   background: var(--color-1);
   transition: border-color 0.2s;
+}
+
+input[required]::before {
+  content: '*';
+  color: red;
+  position: absolute;
+  left: -10px;
+  /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .todo-form input:focus {

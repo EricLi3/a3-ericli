@@ -20,6 +20,7 @@ function showLogin() {
   authSection.innerHTML = `
     <div class="login-container">
       <h2>Please log with GitHub to continute!</h2>
+      <br>
       <a href="/auth/github" id="login-btn">Login with GitHub</a>
     </div>
   `;

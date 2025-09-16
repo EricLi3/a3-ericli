@@ -30,10 +30,13 @@
 
         <button id="start-guide" style="margin-bottom: 10px;">Show Interactive Guide</button>
         <form class="todo-form">
-          <input type="text" id="taskTitle" value="" placeholder="Task" required>
-          <input type="text" id="taskDescription" value="" placeholder="Description" required>
+          <label for="taskTitle">Task</label>
+          <input type="text" id="taskTitle" value="" required>
+          <label for="taskDescription">Description</label>
+          <input type="text" id="taskDescription" value="" required>
+          <label for="taskDueDate">Due Date</label>
           <input type="date" id="taskDueDate" value="" required>
-          <button type="submit">Submit</button>
+          <button type="submit">Add Task</button>
         </form>
         <hr>
 
