@@ -2,11 +2,7 @@
 
 // Allow function to run in background
 const submit = async function (event) {
-  // stop form submission from trying to load
-  // a new .html page for displaying results...
-  // this was the original browser behavior and still
-  // remains to this day
-  event.preventDefault()
+  event.preventDefault();
 
   const title = document.querySelector("#taskTitle"),
     taskDescription = document.querySelector("#taskDescription"),
@@ -16,22 +12,26 @@ const submit = async function (event) {
       taskDescription: taskDescription.value,
       taskDueDate: taskDueDate.value
     },
-    body = JSON.stringify(json)
+    body = JSON.stringify(json);
 
   const response = await fetch("/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body
-  })
+  });
 
-  const todos = await response.json()
-  renderTodos(todos)
+  if (response.status === 401) {
+    window.location.href = "/login.html";
+    return;
+  }
 
-  // Clear fields after submit
-  title.value = ""
-  taskDescription.value = ""
-  taskDueDate.value = ""
-}
+  const todos = await response.json();
+  renderTodos(todos);
+
+  title.value = "";
+  taskDescription.value = "";
+  taskDueDate.value = "";
+};
 
 function renderTodos(todos) {
   const list = document.querySelector("#todo-table");
@@ -78,6 +78,7 @@ function renderTodos(todos) {
       const response = await fetch(`/delete?id=${id}`, {
         method: "DELETE",
       });
+      if (response.status === 401) return window.location.href = "/login.html";
       const todos = await response.json();
       renderTodos(todos);
     };
@@ -142,6 +143,7 @@ function showEditPopup(todo, id) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updated)
     });
+    if (response.status === 401) return window.location.href = "/login.html";
     const todos = await response.json();
     renderTodos(todos);
     popup.remove();
@@ -154,12 +156,18 @@ async function toggleCompleted(id, completed) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id, completed })
   });
+  if (response.status === 401) return window.location.href = "/login.html";
   const todos = await response.json();
   renderTodos(todos);
 }
 
 async function fetchTodos() {
   const response = await fetch("/todos");
+  if (response.status === 401) {
+    // User not logged in → redirect to login page
+    window.location.href = "/login.html";
+    return;
+  }
   const todos = await response.json();
   renderTodos(todos);
 }
@@ -243,10 +251,18 @@ function startGuide(step = 0) {
   };
 }
 
+const loginBtn = document.getElementById("login-btn");
+if (loginBtn) loginBtn.onclick = () => window.location.href = "/auth/github";
+
+const logoutBtn = document.getElementById("logout-btn");
+if (logoutBtn) logoutBtn.onclick = () => window.location.href = "/logout";
+
+
 window.onload = function () {
   const form = document.querySelector(".todo-form"); // allow for keyboard entry
   form.onsubmit = submit;
   fetchTodos();
+
   const guideBtn = document.getElementById("start-guide");
   if (guideBtn) guideBtn.onclick = () => startGuide(0);
 }
