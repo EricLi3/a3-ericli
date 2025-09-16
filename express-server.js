@@ -19,12 +19,28 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true }, // HTTPS required on Render
+  cookie: { secure: false }, // HTTPS required on Render
+  httpOnly: true,
+  maxAge: 24 * 60 * 60 * 1000, // 24 hours
   sameSite: 'lax'
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+app.use((req, res, next) => {
+  console.log('\n=== REQUEST DEBUG ===');
+  console.log('URL:', req.url);
+  console.log('Method:', req.method);
+  console.log('Session ID:', req.sessionID);
+  console.log('Session data:', req.session);
+  console.log('IsAuthenticated:', req.isAuthenticated ? req.isAuthenticated() : 'method not available');
+  console.log('User:', req.user);
+  console.log('Session Cookie:', req.get('Cookie'));
+  console.log('===================\n');
+  next();
+});
 
 // ----- Database ------
 let tasksCollection; // Make it global so routes can access it
@@ -64,6 +80,11 @@ passport.use(new GitHubStrategy({
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: "https://a3-ericli.onrender.com/auth/github/callback"
 }, async (accessToken, refreshToken, profile, done) => {
+
+  console.log('\n=== GITHUB STRATEGY ===');
+  console.log('Profile ID:', profile.id);
+  console.log('Profile Username:', profile.username);
+
   try {
     let user = await usersCollection.findOne({ githubId: profile.id });
     if (!user) {
@@ -97,16 +118,43 @@ app.get('/auth/github',
 app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/'); // Redirect to homepage after successful login
-  });
+    console.log('\n=== GITHUB CALLBACK ===');
+    console.log('Callback success - User:', req.user);
+    console.log('Session after auth:', req.session);
+    console.log('IsAuthenticated:', req.isAuthenticated());
+
+    // POTENTIAL FIX: Manually save session
+    req.session.save((err) => {
+      if (err) {
+        console.error('Session save error:', err);
+      } else {
+        console.log('Session saved successfully');
+      }
+      console.log('=======================\n');
+      res.redirect('/');
+    });
+  }
+);
 
 app.get('/logout', (req, res) => {
-  req.logout(() => {
-    res.redirect('/');
+  req.logout((err) => {
+    if (err) console.error('Logout error:', err);
+    req.session.destroy(() => {
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    });
   });
 });
 
 app.get('/me', (req, res) => {
+  console.log('\n=== /ME ENDPOINT ===');
+  console.log('Session ID:', req.sessionID);
+  console.log('Session data:', req.session);
+  console.log('IsAuthenticated method exists:', typeof req.isAuthenticated);
+  console.log('IsAuthenticated result:', req.isAuthenticated ? req.isAuthenticated() : 'N/A');
+  console.log('User object:', req.user);
+  console.log('==================\n');
+  
   if (!req.isAuthenticated()) return res.status(401).json({ user: null });
   res.json({ user: { username: req.user.username } });
 });
