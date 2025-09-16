@@ -18,9 +18,8 @@ async function checkLogin() {
 function showLogin() {
   const authSection = document.getElementById('auth-section');
   authSection.innerHTML = `
-    <div class="login-container">
-      <a href="/auth/github" id="login-btn">Login with GitHub</a>
-    </div>
+    <a href="/auth/github" id="login-btn">Login with GitHub</a>
+    <p>If this is your first time, a new account will be created automatically.</p>
   `;
   document.getElementById('app').style.display = 'none';
 }

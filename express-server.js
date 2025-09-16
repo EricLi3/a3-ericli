@@ -19,7 +19,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true }, // HTTPS required on Render
+  cookie: { secure: false }, // HTTPS required on Render
   httpOnly: true,
   maxAge: 24 * 60 * 60 * 1000, // 24 hours
   sameSite: 'lax'
