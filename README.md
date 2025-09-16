@@ -7,22 +7,19 @@ Include a very brief summary of your project here. Images are encouraged, along 
 - the goal of the application
 - challenges you faced in realizing the application
 
-A lot of problems with connecting to Mongodb. Had to google a lot on server and best ways to seperate the logic. 
+A lot of problems with connecting to Mongodb. Had to google a lot on server and best ways to seperate the logic.
 
-Problem with using id in MongoDb instead of idx which was a big change I had to figure out. 
+Problem with using id in MongoDb instead of idx which was a big change I had to figure out.
 
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-
-- I used
-  - include any modifications to the CSS framework you made via custom CSS you authored
+- I chose OAuth Authenetication via GitHub. My friend did something with this in the past and I wanted to give it a try.
 
 - a list of Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function, please add a little more detail about what it does.
 
 ## Technical Achievements
-- **Tech Achievement 1**:  Other hosting service
+- **Tech Achievement 1**:  Other hosting service (Failed)
 I tried using vercel to host my website. This didn't work as you can see my link at the top of this README is Render. Vercel forces you to have endpoints as severless, also demanding a /api prefix before every endpoint. A good thing about vercel, much like Render, is that it deploys automatically upon commit. I am also familar with vercel, using it to host many projects in the past, but unfortuntly, it didn't work out this time.
 
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **Tech Achievement 2**: I used OAuth authentication via the GitHub strategy. This was quite difficult in terms of debugging. One big breakthrough I had was finding this document: https://stackoverflow.com/questions/56106875/passport-req-user-is-undefined-when-using-github-strategy which led to me manually saving the session cookie, leading to successful auth. Overall, I used a lot of googling and referencing guides. The user will login via github, adding them to the usersCollection in my database, and will be presented with the tasks they already had specific to their user_id, and have the ability to add, edit, and delete tasks at will.
 
 
 ### Design/Evaluation Achievements
