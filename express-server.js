@@ -19,7 +19,8 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true } // HTTPS required on Render
+  cookie: { secure: true }, // HTTPS required on Render
+  sameSite: 'lax'
 }));
 
 app.use(passport.initialize());
@@ -113,6 +114,8 @@ app.get('/me', (req, res) => {
 // ----- API Routes -----
 
 app.get('/todos', requireLogin, async (req, res) => {
+  console.log("User in /todos:", req.user);
+
   try {
     const todos = await tasksCollection.find({}).toArray();
     res.json(todos);
