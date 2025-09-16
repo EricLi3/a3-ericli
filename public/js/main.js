@@ -69,7 +69,7 @@ function renderTodos(todos) {
 
   todos.forEach((todo) => {
     const li = document.createElement("li");
-
+    li.setAttribute("tabindex", "0"); // make li focusable
     if (todo.completed) li.classList.add("completed");
 
     li.innerHTML = `
@@ -97,7 +97,6 @@ function renderTodos(todos) {
     };
 
     li.onclick = toggleHandler;
-    // Add keypress listener to toggle with the 'Enter' key
     li.onkeydown = (e) => {
       if (e.key === 'Enter' || e.keyCode === 13) {
         toggleHandler(e);
