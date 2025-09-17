@@ -15,6 +15,8 @@ body {
   background: linear-gradient(135deg, var(--color-1), #e0eafc);
   padding: 3vw 4vw;
   box-sizing: border-box;
+  margin: 0;
+  min-height: 100vh;
 }
 
 .login-container {
@@ -22,7 +24,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 1rem;
 }
 
 #login-btn {
@@ -43,12 +46,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  /* width: 95%; */
   max-width: 800px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.85);
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(40, 130, 237, 0.08);
-  padding: 2rem;
+  padding: clamp(1rem, 4vw, 2rem);
 }
 
 .todo-form {
@@ -119,4 +123,54 @@ footer {
   margin-top: 2rem;
   color: var(--color-5);
   font-size: 0.95rem;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+  body {
+    padding: 2vw;
+  }
+
+  .container {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .todo-form {
+    gap: 10px;
+  }
+
+  .todo-form input {
+    font-size: 0.9rem;
+  }
+
+  .todo-form button {
+    width: 100%;
+    padding: 0.75rem;
+  }
+
+  #login-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  body {
+    padding: 1vw;
+  }
+
+  .container {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+
+  #todo-table li {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  footer {
+    font-size: 0.85rem;
+  }
 }

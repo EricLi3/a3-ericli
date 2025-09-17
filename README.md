@@ -44,3 +44,9 @@ Made interactive elements easy to find by using standout colors also making it c
 8. Ensure that form elements include clearly associated labels: Added descriptive associated labels for each form element
 
 9. Semantic HTML structure: Used semantic tags: <main>, <section>, <form> for better accessibility and screen reader support
+
+10. Provide sufficient contrast between foreground and background: Used css styling text and background, making sure the contrast is enough (dark text on light background)
+
+11. Identify page language and language changes: Indicated the primary language of homepage by using the lang attribute in the html tag, <html lang="en">.
+
+12. Write code that adapts to the user’s technology: Added vh css and responsive design using media queries
