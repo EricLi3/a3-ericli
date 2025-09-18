@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 
 // Serve static files
 app.use(express.static('public'));
-app.use(express.static('views'));
+// app.use(express.static('views'));
 app.use(express.json());
 
 // ----- Session Startup -----

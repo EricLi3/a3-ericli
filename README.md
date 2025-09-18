@@ -2,18 +2,30 @@
 
 Link: https://a3-ericli.onrender.com/
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
+The goal of this application is to create a web application that allows users to create an account through github, create new tasks (title, description, and due date) and interact with their tasks (edit, toggle, delete). This application is made as easy to use as possible, using inviting colors and stylings that are pleasing to the user.
 
 - A lot of problems with connecting to Mongodb. Had to google a lot on server and best ways to seperate the logic.
 
 - Problem with using id in MongoDb instead of idx which was a big change I had to figure out.
 
-- I chose OAuth Authenetication via GitHub. My friend did something with this in the past and I wanted to give it a try. Had a problem with having a seperate login page, redirection didn't work upon login. I chose to resolve this by mantaining a single home page, hiding the main container div if the user isn't logged in and hiding the login button if the user is logged in.
+- I chose OAuth Authenetication via GitHub. My friend did something with this in the past and I wanted to give it a try. Had a problem with having a seperate login page, redirection didn't work upon login. I chose to resolve this by mantaining a single home page, hiding the main container div if the user isn't logged in and hiding the login button if the user is logged in. Another thing I struggled with was having the user being flagged as undefined even after signing in. The fix is described in Tech Achievement 2 below.
 
-- a list of Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function, please add a little more detail about what it does.
+- I used bootstrap for my css framework. I customized it through creating a custom color palette, implementing a custom container layout with flexbox, adding custom form styling for enhanced accessibility, and custom button design with hover effects. I also added css for a responsize design, custom breakpoints at 600px and 400 px to allow the application to adapt to whatever device the user is on.
+
+- Express middleware packages used:
+1. express.static() to serve static files from the specified public directory
+2. express.json() to parse incoming JSON payloads in request payloads
+
+- Third party middleware
+3. express-session to manage user permissions and session data storage
+4. passport initialize for initializing passport.js auth middleware
+5. passport session for persistent login (once logged in, don't need to do again unless the user requests a log out)
+6. passport-github2 for GitHub OAuth 2.0 strategy
+
+- Custom Middleware functions:
+7. requireLogin(req, res, next) to check if a user is logged in before allowing it to access protected routes.
+8. Debg middleware for urls,  methods, session data and auth status for debugging. 
+
 
 ## Technical Achievements
 - **Tech Achievement 1**:  Other hosting service (Failed)
