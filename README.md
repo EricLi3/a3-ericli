@@ -2,6 +2,8 @@
 
 Link: https://a3-ericli.onrender.com/
 
+![Lighthouse Report](public/lighthouse.png)
+
 The goal of this application is to create a web application that allows users to create an account through github, create new tasks (title, description, and due date) and interact with their tasks (edit, toggle, delete). This application is made as easy to use as possible, using inviting colors and stylings that are pleasing to the user.
 
 - A lot of problems with connecting to Mongodb. Had to google a lot on server and best ways to seperate the logic.
